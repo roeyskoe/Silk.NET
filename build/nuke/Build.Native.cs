@@ -174,7 +174,7 @@ partial class Build
                     var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.OpenAL.Soft.Native" / "runtimes";
                     if (OperatingSystem.IsWindows())
                     {
-                        InheritedShell($"{prepare} -A X64", ALSoftPath)
+                        InheritedShell($"{prepare} -A X64 -DALSOFT_BUILD_ROUTER=ON -DALSOFT_REQUIRE_WINMM=ON -DALSOFT_REQUIRE_DSOUND=ON -DALSOFT_REQUIRE_WASAPI=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
@@ -182,7 +182,7 @@ partial class Build
 
                         EnsureCleanDirectory(@out);
 
-                        InheritedShell($"{prepare} -A Win32", ALSoftPath)
+                        InheritedShell($"{prepare} -A Win32 -DALSOFT_BUILD_ROUTER=ON -DALSOFT_REQUIRE_WINMM=ON -DALSOFT_REQUIRE_DSOUND=ON -DALSOFT_REQUIRE_WASAPI=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
@@ -191,7 +191,7 @@ partial class Build
                     }
                     else if (OperatingSystem.IsLinux())
                     {
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DALSOFT_REQUIRE_RTKIT=ON -DALSOFT_REQUIRE_ALSA=ON -DALSOFT_REQUIRE_OSS=ON -DALSOFT_REQUIRE_PORTAUDIO=ON -DALSOFT_REQUIRE_PULSEAUDIO=ON -DALSOFT_REQUIRE_JACK=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
@@ -199,7 +199,7 @@ partial class Build
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_NAME=DARWIN -DCMAKE_OSX_ARCHITECTURES=arm64", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_ARCHITECTURES=arm64 -DALSOFT_REQUIRE_COREAUDIO=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
@@ -208,7 +208,7 @@ partial class Build
 
                         EnsureCleanDirectory(@out);
 
-                        InheritedShell($"{prepare} -DCMAKE_OSX_ARCHITECTURES=x86_64", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_OSX_ARCHITECTURES=x86_64 -DALSOFT_REQUIRE_COREAUDIO=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
