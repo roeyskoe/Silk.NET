@@ -199,20 +199,20 @@ partial class Build
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
-                        InheritedShell($"{prepare} -DCMAKE_OSX_ARCHITECTURES=x86_64", ALSoftPath)
-                            .AssertZeroExitCode();
-                        InheritedShell(build, ALSoftPath)
-                            .AssertZeroExitCode();
-                        CopyAll(@out.GlobFiles("src/libopenal.dylib"), runtimes / "osx-x64" / "native");
-
-                        EnsureCleanDirectory(@out);
-
                         InheritedShell($"{prepare} -DCMAKE_OSX_ARCHITECTURES=arm64", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
 
                         CopyAll(@out.GlobFiles("src/libopenal.dylib"), runtimes / "osx-arm64" / "native");
+
+                        EnsureCleanDirectory(@out);
+
+                        InheritedShell($"{prepare} -DCMAKE_OSX_ARCHITECTURES=x86_64", ALSoftPath)
+                            .AssertZeroExitCode();
+                        InheritedShell(build, ALSoftPath)
+                            .AssertZeroExitCode();
+                        CopyAll(@out.GlobFiles("src/libopenal.dylib"), runtimes / "osx-x64" / "native");
                     }
                 }
             )
