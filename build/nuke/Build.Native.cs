@@ -199,7 +199,7 @@ partial class Build
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
-                        InheritedShell($"{prepare} -G Xcode -DCMAKE_OSX_ARCHITECTURES=arm64", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_NAME=DARWIN -DCMAKE_OSX_ARCHITECTURES=arm64", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
