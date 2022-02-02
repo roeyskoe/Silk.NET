@@ -39,6 +39,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100
+      - name: Install Workloads
+        run: dotnet workload install android
       - name: Build OpenALSoft
         run: ${{ matrix.env.nuke_invoke }} OpenALSoft
       - uses: actions/upload-artifact@v2
