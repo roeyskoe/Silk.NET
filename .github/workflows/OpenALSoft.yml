@@ -16,7 +16,6 @@ jobs:
             nuke_invoke: ./build.sh
             extras: |
               sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev qtbase5-dev libdbus-1-dev
-              sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install ndk
           - os: windows-latest
             name: Windows
             nuke_invoke: ./build.cmd
