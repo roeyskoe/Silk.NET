@@ -171,14 +171,15 @@ partial class Build
                     var prepare = "cmake -S. -B build -D BUILD_SHARED_LIBS=ON";
                     var build = "cmake --build build --config Release";
                     EnsureCleanDirectory(@out);
-                    var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.OpenAL.Soft.Native" / "runtimes";
+                    //var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.OpenAL.Soft.Native" / "runtimes";
+                    var runtimes = @out / "tmp";
                     if (OperatingSystem.IsWindows())
                     {
                         InheritedShell($"{prepare} -A X64 -DALSOFT_BUILD_ROUTER=ON -DALSOFT_REQUIRE_WINMM=ON -DALSOFT_REQUIRE_DSOUND=ON -DALSOFT_REQUIRE_WASAPI=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
-                        CopyAll(@out.GlobFiles("src/Release/soft_oal.dll"), runtimes / "win-x64" / "native");
+                        CopyAll(@out.GlobFiles("Release/soft_oal.dll"), runtimes / "win-x64" / "native");
 
                         EnsureCleanDirectory(@out);
 
@@ -187,7 +188,7 @@ partial class Build
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
 
-                        CopyAll(@out.GlobFiles("src/Release/soft_oal.dll"), runtimes / "win-x86" / "native");
+                        CopyAll(@out.GlobFiles("Release/soft_oal.dll"), runtimes / "win-x86" / "native");
                     }
                     else if (OperatingSystem.IsLinux())
                     {
@@ -195,7 +196,7 @@ partial class Build
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
-                        CopyAll(@out.GlobFiles("src/libopenal.so"), runtimes / "linux-x64" / "native");
+                        CopyAll(@out.GlobFiles("Release/libopenal.so"), runtimes / "linux-x64" / "native");
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
@@ -203,7 +204,7 @@ partial class Build
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
-                        CopyAll(@out.GlobFiles("src/libopenal.dylib"), runtimes / "osx-x64" / "native");
+                        CopyAll(@out.GlobFiles("Release/libopenal.dylib"), runtimes / "osx-x64" / "native");
                     }
                 }
             )
