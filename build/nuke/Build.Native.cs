@@ -192,7 +192,7 @@ partial class Build
                     }
                     else if (OperatingSystem.IsLinux())
                     {
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DALSOFT_REQUIRE_ALSA=ON -DALSOFT_REQUIRE_OSS=ON -DALSOFT_REQUIRE_PORTAUDIO=ON -DALSOFT_REQUIRE_PULSEAUDIO=ON -DALSOFT_REQUIRE_JACK=ON", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_BUILD_TYPE=Release -DALSOFT_REQUIRE_ALSA=ON -DALSOFT_REQUIRE_OSS=ON -DALSOFT_REQUIRE_PORTAUDIO=ON -DALSOFT_REQUIRE_PULSEAUDIO=ON -DALSOFT_REQUIRE_JACK=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();

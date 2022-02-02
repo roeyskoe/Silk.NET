@@ -15,7 +15,7 @@ jobs:
             name: Linux
             nuke_invoke: ./build.sh
             extras: |
-              sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev
+              sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev qtbase5-dev libdbus-1-dev
           - os: windows-latest
             name: Windows
             nuke_invoke: ./build.cmd
