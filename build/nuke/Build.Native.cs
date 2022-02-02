@@ -200,7 +200,7 @@ partial class Build
 
                         EnsureCleanDirectory(@out);
 
-                        InheritedShell($"{prepare} -DCMAKE_TOOLCHAIN_FILE=/usr/local/lib/android/sdk/ndk/build/cmake/android.toolchain.cmake", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_TOOLCHAIN_FILE={AndroidHome}/ndk/build/cmake/android.toolchain.cmake", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
