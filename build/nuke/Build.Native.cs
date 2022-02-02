@@ -172,7 +172,7 @@ partial class Build
                     var build = "cmake --build build --config Release";
                     EnsureCleanDirectory(@out);
                     //var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.OpenAL.Soft.Native" / "runtimes";
-                    var runtimes = @out / "tmp";
+                    var runtimes = ALSoftPath / "tmp";
                     if (OperatingSystem.IsWindows())
                     {
                         InheritedShell($"{prepare} -A X64 -DALSOFT_BUILD_ROUTER=ON -DALSOFT_REQUIRE_WINMM=ON -DALSOFT_REQUIRE_DSOUND=ON -DALSOFT_REQUIRE_WASAPI=ON", ALSoftPath)
@@ -192,7 +192,7 @@ partial class Build
                     }
                     else if (OperatingSystem.IsLinux())
                     {
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DALSOFT_REQUIRE_RTKIT=ON -DALSOFT_REQUIRE_ALSA=ON -DALSOFT_REQUIRE_OSS=ON -DALSOFT_REQUIRE_PORTAUDIO=ON -DALSOFT_REQUIRE_PULSEAUDIO=ON -DALSOFT_REQUIRE_JACK=ON", ALSoftPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DALSOFT_REQUIRE_ALSA=ON -DALSOFT_REQUIRE_OSS=ON -DALSOFT_REQUIRE_PORTAUDIO=ON -DALSOFT_REQUIRE_PULSEAUDIO=ON -DALSOFT_REQUIRE_JACK=ON", ALSoftPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, ALSoftPath)
                             .AssertZeroExitCode();
