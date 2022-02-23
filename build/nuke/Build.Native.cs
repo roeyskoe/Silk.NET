@@ -112,7 +112,8 @@ partial class Build
                     var prepare = "cmake -S. -B build -D BUILD_SHARED_LIBS=ON";
                     var build = "cmake --build build --config Release";
                     EnsureCleanDirectory(@out);
-                    var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.GLFW.Native" / "runtimes";
+                    //var runtimes = RootDirectory / "src" / "Native" / "Silk.NET.GLFW.Native" / "runtimes";
+                    var runtimes = GLFWPath / "compiled"; // testing
                     if (OperatingSystem.IsWindows())
                     {
                         InheritedShell($"{prepare} -A X64", GLFWPath)
@@ -137,6 +138,14 @@ partial class Build
                         InheritedShell(build, GLFWPath)
                             .AssertZeroExitCode();
                         CopyAll(@out.GlobFiles("src/libglfw.so"), runtimes / "linux-x64" / "native");
+                        
+                        EnsureCleanDirectory(@out);
+                        
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=arm64", GLFWPath)
+                            .AssertZeroExitCode();
+                        InheritedShell(build, GLFWPath)
+                            .AssertZeroExitCode();
+                        CopyAll(@out.GlobFiles("src/libglfw.so"), runtimes / "linux-Arm64" / "native");
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
