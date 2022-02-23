@@ -141,11 +141,19 @@ partial class Build
                         
                         EnsureCleanDirectory(@out);
                         
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=aarch64", GLFWPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=armv7", GLFWPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, GLFWPath)
                             .AssertZeroExitCode();
-                        CopyAll(@out.GlobFiles("src/libglfw.so"), runtimes / "linux-Arm64" / "native");
+                        CopyAll(@out.GlobFiles("src/libglfw.so"), runtimes / "linux-armv7" / "native");
+                        
+                        EnsureCleanDirectory(@out);
+                        
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=arm", GLFWPath)
+                            .AssertZeroExitCode();
+                        InheritedShell(build, GLFWPath)
+                            .AssertZeroExitCode();
+                        CopyAll(@out.GlobFiles("src/libglfw.so"), runtimes / "linux-arm" / "native");
                     }
                     else if (OperatingSystem.IsMacOS())
                     {
