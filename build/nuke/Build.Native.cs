@@ -141,7 +141,7 @@ partial class Build
                         
                         EnsureCleanDirectory(@out);
                         
-                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=arm64", GLFWPath)
+                        InheritedShell($"{prepare} -DCMAKE_SYSTEM_PROCESSOR=aarch64", GLFWPath)
                             .AssertZeroExitCode();
                         InheritedShell(build, GLFWPath)
                             .AssertZeroExitCode();
